@@ -21,3 +21,6 @@ shank = "0.4.2"
 litesvm = "0.6.1"
 solana-sdk = "2.2.1"
 hex = "0.4"
+
+[[test]]
+name = "unit_tests"

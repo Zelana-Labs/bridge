@@ -1,6 +1,7 @@
 use pinocchio::{account_info::AccountInfo, program_error::ProgramError};
 
-// use crate::error::MyProgramError;
+use crate::helpers::StateDefinition;
+
 
 pub trait DataLen {
     const LEN: usize;
@@ -11,7 +12,7 @@ pub trait Initialized {
 }
 
 #[inline(always)]
-pub unsafe fn load_acc<T: DataLen + Initialized>(bytes: &[u8]) -> Result<&T, ProgramError> {
+pub unsafe fn load_acc<T: StateDefinition + Initialized>(bytes: &[u8]) -> Result<&T, ProgramError> {
     load_acc_unchecked::<T>(bytes).and_then(|acc| {
         if acc.is_initialized() {
             Ok(acc)
@@ -22,7 +23,7 @@ pub unsafe fn load_acc<T: DataLen + Initialized>(bytes: &[u8]) -> Result<&T, Pro
 }
 
 #[inline(always)]
-pub unsafe fn load_acc_unchecked<T: DataLen>(bytes: &[u8]) -> Result<&T, ProgramError> {
+pub unsafe fn load_acc_unchecked<T: StateDefinition>(bytes: &[u8]) -> Result<&T, ProgramError> {
     if bytes.len() != T::LEN {
         return Err(ProgramError::InvalidAccountData);
     }
@@ -30,7 +31,7 @@ pub unsafe fn load_acc_unchecked<T: DataLen>(bytes: &[u8]) -> Result<&T, Program
 }
 
 #[inline(always)]
-pub unsafe fn load_acc_mut<T: DataLen + Initialized>(
+pub unsafe fn load_acc_mut<T: StateDefinition + Initialized>(
     bytes: &mut [u8],
 ) -> Result<&mut T, ProgramError> {
     load_acc_mut_unchecked::<T>(bytes).and_then(|acc| {
@@ -43,7 +44,7 @@ pub unsafe fn load_acc_mut<T: DataLen + Initialized>(
 }
 
 #[inline(always)]
-pub unsafe fn load_acc_mut_unchecked<T: DataLen>(bytes: &mut [u8]) -> Result<&mut T, ProgramError> {
+pub unsafe fn load_acc_mut_unchecked<T: StateDefinition>(bytes: &mut [u8]) -> Result<&mut T, ProgramError> {
     if bytes.len() != T::LEN {
         return Err(ProgramError::InvalidAccountData);
     }

@@ -4,21 +4,16 @@
 #[cfg(feature = "std")]
 extern crate std;
 
-use pinocchio::{account_info::AccountInfo, entrypoint, program_error::ProgramError, pubkey::{self, Pubkey}, sysvars::instructions, ProgramResult};
+use pinocchio::{account_info::AccountInfo, entrypoint, program_error::ProgramError, pubkey::{Pubkey},  ProgramResult};
 
 pub mod state;
 pub mod helpers;
 pub mod instruction;
 use instruction::*;
 
-//BrdgVaulT1111111111111111111111111111111111
-pub const ID: Pubkey = [
-    0x1d, 0x07, 0x3d, 0x2e, 0x89, 0x19, 0xe6, 0xd6,
-    0x3c, 0x36, 0x65, 0x27, 0x3a, 0x7d, 0x64, 0x9a,
-    0x1b, 0xd5, 0x3b, 0x36, 0x8c, 0x9d, 0x92, 0x37,
-    0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11,
-];
+pinocchio_pubkey::declare_id!("95sWqtU9fdm19cvQYu94iKijRuYAv3wLqod1pcsSfYth");
 
+entrypoint!(process_instruction);
 
 fn process_instruction(
     program_id: &Pubkey,
@@ -32,16 +27,13 @@ fn process_instruction(
 
     match BridgeIx::try_from(discriminator)? {
         BridgeIx::INIT=>{
-            todo!()
+            instruction::init::process_initialize(program_id, accounts, data)
         }
         BridgeIx::DEPOSIT=>{
-            todo!()
+            instruction::deposit::process_deposit(accounts, data)
         }
         BridgeIx::WITHDRAWATTESTED=>{
-            todo!()
-        }
-        _=>{
-            todo!()
+            instruction::withdraw::process_withdraw_attested(program_id, accounts, data)
         }
     }   
 }

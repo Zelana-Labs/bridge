@@ -1,11 +1,11 @@
 use bytemuck::{Pod,Zeroable};
 use pinocchio::{account_info::AccountInfo, program_error::ProgramError, pubkey::Pubkey};
 
-use crate::helpers::StateDefinition;
+use crate::helpers::{Initialized, StateDefinition};
 
 #[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq)]
 #[repr(C)]
-pub struct Depositreceipt{
+pub struct DepositReceipt{
     pub depositor: Pubkey,
     pub amount: u64,
     pub nonce: u64,
@@ -15,29 +15,26 @@ pub struct Depositreceipt{
 }
 
 
-impl StateDefinition for Depositreceipt{
-    const LEN: usize = core::mem::size_of::<Depositreceipt>();
-    const SEED: &'static str = "depositreceipt";
+impl StateDefinition for DepositReceipt {
+    const LEN: usize = core::mem::size_of::<DepositReceipt>();
+    const SEED: &'static str = "receipt";
 }
 
-impl Depositreceipt{
-    pub fn from_account_info_unchecked(account_info: &AccountInfo)-> &mut Self{
-        unsafe { &mut *(account_info.borrow_mut_data_unchecked().as_ptr() as *mut Self) }
+impl Initialized for DepositReceipt {
+    /// A receipt is initialized if the depositor key is not the default Pubkey.
+    fn is_initialized(&self) -> bool {
+        self.depositor != Pubkey::default()
     }
+}
 
-    pub fn from_account_info(
-        account_info: &AccountInfo
-    )->Result<&mut Self,ProgramError>{
-        if account_info.data_len()<Depositreceipt::LEN{
-            return Err(ProgramError::InvalidAccountData);
-        }
-        Ok(Self::from_account_info_unchecked(account_info))
+impl DepositReceipt {
+    /// Initializes a new DepositReceipt state.
+    pub fn new(&mut self, depositor: Pubkey, amount: u64, nonce: u64, timestamp: i64, bump: u8) {
+        self.depositor = depositor;
+        self.amount = amount;
+        self.nonce = nonce;
+        self.ts = timestamp;
+        self.bump = bump;
+        self._padding = [0; 7];
     }
-
-    pub fn new(
-        &mut self,
-        bump: u8,
-        amount:u64,
-
-    )
 }

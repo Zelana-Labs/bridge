@@ -4,7 +4,6 @@ use pinocchio::{
     pubkey::Pubkey,
 };
 
-use crate::helpers::utils::DataLen;
 
 #[inline(always)]
 pub fn check_signer(account: &AccountInfo) -> Result<(), ProgramError> {
@@ -13,3 +12,4 @@ pub fn check_signer(account: &AccountInfo) -> Result<(), ProgramError> {
     }
     Ok(())
 }
+

@@ -8,7 +8,6 @@ use pinocchio::{
 };
 use pinocchio_system::instructions::CreateAccount;
 
-use crate::helpers::utils::DataLen;
 
 pub trait HasOwner {
     fn owner(&self) -> &Pubkey;
@@ -18,6 +17,7 @@ pub trait StateDefinition {
     const LEN: usize;
     const SEED: &'static str;
 }
+
 
 #[inline(always)]
 pub fn create_pda_account<S>(

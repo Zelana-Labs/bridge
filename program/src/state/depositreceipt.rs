@@ -3,7 +3,7 @@ use pinocchio::{account_info::AccountInfo, program_error::ProgramError, pubkey::
 
 use crate::helpers::{Initialized, StateDefinition};
 
-#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq)]
+#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq,shank::ShankAccount)]
 #[repr(C)]
 pub struct DepositReceipt{
     pub depositor: Pubkey,

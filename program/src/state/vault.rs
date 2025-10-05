@@ -1,7 +1,7 @@
 use bytemuck::{Pod, Zeroable};
 use crate::helpers::{Initialized, StateDefinition};
 
-#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq)]
+#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq,shank::ShankAccount)]
 #[repr(C)]
 pub struct Vault {
     pub bump: u8,

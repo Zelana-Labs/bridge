@@ -3,7 +3,7 @@ use pinocchio::pubkey::Pubkey;
 
 use crate::helpers::{Initialized, StateDefinition};
 
-#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq)]
+#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq,shank::ShankAccount)]
 #[repr(C)]
 pub struct UsedNullifier{
     pub nullifier:[u8;32],

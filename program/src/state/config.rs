@@ -3,7 +3,7 @@ use pinocchio::pubkey::Pubkey;
 
 use crate::helpers::{StateDefinition,Initialized};
 
-#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq)]
+#[derive(Pod, Zeroable, Debug, Clone, Copy, PartialEq,shank::ShankAccount)]
 #[repr(C)]
 pub struct Config{
     pub sequencer_authority: Pubkey,

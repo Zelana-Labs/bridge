@@ -16,11 +16,11 @@ pinocchio-system = "0.3.0"
 pinocchio-token = "0.4.0"
 shank = "0.4.2"
 
-
 [dev-dependencies]
 litesvm = "0.6.1"
 solana-sdk = "2.2.1"
 hex = "0.4"
 
-[[test]]
-name = "unit_tests"
+[features]
+default = []
+std = []

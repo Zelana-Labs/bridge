@@ -25,7 +25,7 @@ impl TryFrom<&u8> for BridgeIx  {
         }
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq, shank::ShankType)]
+#[derive(Pod,Zeroable,Clone, Copy, Debug, PartialEq, shank::ShankType)]
 #[repr(C)]
 pub struct InitParams{
     pub sequencer_authority:Pubkey,

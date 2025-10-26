@@ -74,7 +74,13 @@ pub fn process_withdraw_attested(
 
     let clock = Clock::get()?;
 
-    log!("WithdrawEvent (( config:{} , vault :{} ,recipient: {} , amount:{},nullifier:{} , ts:{} ))",config_account.key(),vault_account.key(),recipient.key(),params.amount,&params.nullifier,clock.unix_timestamp);    
 
+    log!("config:{}",config_account.key());
+    log!("vault:{}",vault_account.key());
+    log!("recipient:{}",recipient.key());
+    log!("amount:{}",params.amount);
+    log!("nullifier:{}",&params.nullifier);
+    log!("ts:{}",clock.unix_timestamp);
+    
     Ok(())
 }

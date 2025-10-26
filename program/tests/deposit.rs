@@ -52,6 +52,7 @@ fn text_deposit_success(){
 
     let result = fixture.build_and_send_transaction(&[], vec![deposit_ix]);
 
+    println!("{:?}",result);
 
     assert!(result.is_ok(),"deposit transaction failed {:?}",result.unwrap_err());
     let vault_balance_after = fixture.svm.get_balance(&fixture.vault_pda).unwrap();

@@ -87,7 +87,11 @@ pub fn process_deposit(accounts:&[AccountInfo],ix_data:&[u8])->ProgramResult{
         receipt_bump
     );
     
-
-    log!("DepositEvent (( depositor:{} , vault :{} ,config: {} , amount:{},nonce:{} , ts:{} ))",depositor.key(),vault_account.key(),config_account.key(),params.amount,params.nonce,clock.unix_timestamp);    
+    log!("depositor:{}",depositor.key());
+    log!("vault:{}",vault_account.key());
+    log!("config:{}",config_account.key());
+    log!("amount:{}",params.amount);
+    log!("nonce:{}",params.nonce);
+    log!("ts:{}",clock.unix_timestamp);
     Ok(())
 }
